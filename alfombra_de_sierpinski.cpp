@@ -9,6 +9,14 @@
 #include <stdlib.h>
 #include <math.h>
 
+void pintar(){
+
+}
+
+void dividir(){
+	
+}
+
  main()
 {
  

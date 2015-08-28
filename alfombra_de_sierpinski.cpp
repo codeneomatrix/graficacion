@@ -12,7 +12,7 @@
  main()
 {
  
-   printf("Alfombra de sierpinski \n");
+   printf("Alfombra de Sierpinski \n");
     system("pause");
     return 0;
     }

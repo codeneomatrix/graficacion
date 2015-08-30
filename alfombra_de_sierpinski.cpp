@@ -9,18 +9,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-void pintar(int pi,int pf,char le[]){
-
-	for (int i=0; i<pf; i++){
-    	for (int j = 0; j < pf; j++)
-    	{
-    		printf("%s", le);	
-    	}
-    	printf("\n");
-   	//espacio(e);
-    }
-
-}
 
 void dividir(int pi, int pf){
 	int t,pc1=0,pc2=0;
@@ -35,12 +23,36 @@ void dividir(int pi, int pf){
 void espacio(int p){
 	for (int j = 0; j < p; j++)
     	{
-    		printf("%s", " ");	
+    		//printf ("\033[47m");
+    		printf("%s", ".");	
     	}
 }
+void espacioy(int p){
+	for (int j = 0; j < p; j++)
+    	{
+    		printf("\n");	
+    	}
+}
+
+
+void pintar(int pi,int pf,char le[]){
+espacioy(pi);
+for (int i=pi; i<pf; i++){
+	espacio(pi);
+    	for (int j = pi; j <pf; j++)
+    	{
+    		printf("%s", le);	
+    	}
+    	printf("\n");
+   	
+    }
+
+}
+
 main()
 {
-    int e=20,r=40,n,mx1,mx2,my;
+    int r=40,n,I=0,F=27;
+    char x[]=".", O[]="#";
     //r=80
 
     printf("Alfombra de Sierpinski \n");
@@ -48,66 +60,29 @@ main()
     printf("ingrese el nivel :\n");
     scanf("%d",&n);
 
-    char x[]=".";
-    pintar(0,27,x);
+    printf ("\033[1J"); //BORRA LA TERMINAL
 
-	//espacio(e);
+    printf ("\033[0;0H");
+    //printf ("\033[47m"); //color de fondo blanco
+    //printf ("\033[1;37m"); //color del texto blanco
+    pintar(I,F,x);
 
-    /*for (int i=0; i<mx1; i++){
-    	for (int j = 0; j < mx1; j++)
-    	{
-    		printf("%s", "*");	
-    	}
+    printf ("\033[0;0H");
+    pintar(9,18,O);
 
-    	for (int j = mx1; j < mx2; j++)
-    	{
-    		printf("%s", "%");	
-    	}
-    	for (int j = mx2; j < r; j++)
-    	{
-    		printf("%s", "=");	
-    	}
-    	printf("\n");
-   	espacio(e);
-    }
-     for (int i=mx1; i<mx2; i++){
-    	for (int j = 0; j < mx1; j++)
-    	{
-    		printf("%s", "/");	
-    	}
 
-    	for (int j = mx1; j < mx2; j++)
-    	{
-    		printf("%s", "#");	
-    	}
-    	for (int j = mx2; j < r; j++)
-    	{
-    		printf("%s", "!");	
-    	}
-    	printf("\n");
-   	espacio(e);
-    }
-    for (int i=mx2; i<r; i++){
-    	for (int j = 0; j < mx1; j++)
-    	{
-    		printf("%s", "+");	
-    	}
+    printf ("\033[0;0H");
+    pintar(1,2,O);
 
-    	for (int j = mx1; j < mx2; j++)
-    	{
-    		printf("%s", "~");	
-    	}
-    	for (int j = mx2; j < r; j++)
-    	{
-    		printf("%s", "¨");	
-    	}
-    	printf("\n");
-   	espacio(e);
-    }*/
+    printf ("\033[0;0H");
+    pintar(3,6,O);
 
-    dividir(0,27);
 
-    system("pause");
+    dividir(I,F);
+
+
+
+    //system("pause");
     return 0;
     }
 

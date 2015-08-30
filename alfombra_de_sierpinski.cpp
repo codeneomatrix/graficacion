@@ -20,33 +20,17 @@ void dividir(int pi, int pf){
 	
 }
 
-void espacio(int p){
-	for (int j = 0; j < p; j++)
-    	{
-    		//printf ("\033[47m");
-    		printf("%s", ".");	
-    	}
-}
-void espacioy(int p){
-	for (int j = 0; j < p; j++)
-    	{
-    		printf("\n");	
-    	}
-}
 
-
-void pintar(int pi,int pf,char le[]){
-espacioy(pi);
+void pintar(int al,int pi,int pf,char le[]){
+printf ("\033[%d;0H",al+1);
 for (int i=pi; i<pf; i++){
-	espacio(pi);
+	printf ("\033[%dC",pi+1);
     	for (int j = pi; j <pf; j++)
     	{
     		printf("%s", le);	
     	}
     	printf("\n");
-   	
     }
-
 }
 
 main()
@@ -65,20 +49,29 @@ main()
     printf ("\033[0;0H");
     //printf ("\033[47m"); //color de fondo blanco
     //printf ("\033[1;37m"); //color del texto blanco
-    pintar(I,F,x);
+    pintar(I,I,F,x);
 
     printf ("\033[0;0H");
-    pintar(9,18,O);
+    pintar(9,9,18,O);
 
 
     printf ("\033[0;0H");
-    pintar(1,2,O);
+    pintar(1,1,2,O);
 
     printf ("\033[0;0H");
-    pintar(3,6,O);
+    pintar(1,4,5,O);
+
+    printf ("\033[0;0H");
+    pintar(3,3,6,O);
+
+    printf ("\033[0;0H");
+    pintar(3,12,15,O);
+
+    printf ("\033[0;0H");
+    pintar(3,21,24,O);
 
 
-    dividir(I,F);
+   // dividir(I,F);
 
 
 

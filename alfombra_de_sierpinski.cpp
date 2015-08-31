@@ -91,7 +91,7 @@ for (int i=pi; i<pf; i++){
     }
 }
 
-main(){	
+int main(){	
 
     int n;
     char x[]="\033[1;37m.\033[1;32m", O[]="▓"; // ▆ ▇ ▉ ⬣ ◼ ▉ 

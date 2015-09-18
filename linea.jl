@@ -1,53 +1,59 @@
-x0=1
-y0=1
+pₒ=(2,1)
+p₁=(15,8)
 
-x1=15
-y1=9
+xₒ=pₒ[1]
+γₒ=pₒ[2]
+
+x₁=p₁[1]
+γ₁=p₁[2]
 
 
 
-matrix=zeros(y1,x1)
+matrix=round(zeros(x₁,x₁))
 #print(size(matrix,1))
 #print("\033[1J")
 
-dx = x1-x0 
-dy = y1-y0 
-x = x0 
-y = y0  
+δx = x₁-xₒ
+δγ = γ₁-γₒ
+γ = γₒ
 
-ix = 2dx 
-iy = 2dy
 
-e = iy-dx 
 
-#print("dx=$dx\ndy=$dy\nx=$x\ny=$y\nix=$ix\niy=$iy\ne=$e\n")
+A= 2δγ
+B = A-2δx
 
-for  px = x0:x1 
- #putpixel(px,y );
- print("\npy=$y")
- if y<=size(matrix,1)
- 	matrix[y,px]=2;
- else
- 	y=y-1
- 	matrix[y,px]=2;
- end
- 
- e = e+iy 
- print("e=$e\nsy=$y")
-	if e>0 
-		y =y+1 
-		e =e-ix 
-	end 
-  #print("y=$y\ne=$e")
- 
-end 
+ϵ = A-δx
+
+print("xₒ=$xₒ γₒ=$γₒ x₁=$x₁  γ₁=$γ₁  δx=$δx  δγ=$δγ    A=$A B=$B  \n     ϵ             (x,γ) \n ϵ=($A-$δx) $ϵ")
+
+for ρx = xₒ:x₁
+ #putpixel(ρx,γ );
+ print("       ($ρx,$γ)\n")
+
+ 	matrix[γ,ρx]=2;
+
+ 	if ϵ>0
+		γ =γ+1
+		print(" ϵ=($ϵ+$B)= ")
+		ϵ =ϵ+B
+		print("$ϵ ")
+	else
+		print(" ϵ=($ϵ+$A)=")
+ 		ϵ = ϵ+A
+ 		print(" $ϵ ")
+	end
+
+  #print("γ=$γ\nϵ=$ϵ")
+
+end
+ print("\n")
 #print(matrix)
 
-for y=y0:y1
-	for x=x0:x1
-		if matrix[y,x] == 2
+for γ=1:x₁
+	for x=1:x₁
+		if matrix[γ,x] == 2
 			print("#")
-		else 
+		else
 			print(".")
 		end
 	end

@@ -65,9 +65,6 @@ dy = y1-y0;
 adx = abs(dx);
 ady= abs(dy);
 
-printf("el valor absolut de dx es:%d\n", adx );
-printf("el valor absolut de dy es:%d\n", ady);
-
 y = y0;
 x = x0;
 A= 2*dy;
@@ -227,9 +224,6 @@ A= 2*dx;
 
 B = A-(2*dy);
 e = A-dy;
-
-printf("\naqi el valor importa A(%d)=2*dx(%d)\n",A,dx);
-printf("aqi el valor importa B(%d)=A(%d)-(2*dy(%d))\n",B,A,dy);
 
 printf("B=%d  \n     %d             (x,y) \n",B,e);
 printf("e=(%d-%d) %d",A,dy,e);

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int x0,y0,x1,y1,dx,dy,y,A,B,e,horizontal,lineavertical,vertical,maxtan=40,poseje=maxtan/2;
+int x0,y0,x1,y1,dx,dy,y,x,A,B,e,horizontal,lineavertical,vertical,maxtan=40,poseje=maxtan/2,adx,ady;
 
 
 
@@ -62,16 +62,23 @@ if(y0>y1){
 
 dx = x1-x0;
 dy = y1-y0;
+adx = abs(dx);
+ady= abs(dy);
+
+printf("el valor absolut de dx es:%d\n", adx );
+printf("el valor absolut de dy es:%d\n", ady);
+
 y = y0;
+x = x0;
 A= 2*dy;
 //B = A-(2*dx);
 //e = A-dx;
 
 printf("x0=%d y0=%d x1=%d  y1=%d dx=%d  dy=%d    A=%d",x0,y0,x1,y1,dx,dy,A) ;
 
+if (adx>=ady){
 
-
-if(horizontal==0 && vertical==1){
+	if(horizontal==0 && vertical==1){
 dx=dx*-1;
 B = A-(2*dx);
 e = A-dx;
@@ -184,7 +191,136 @@ for (int px=x0;px<=x1;px++){
  printf("\n");
 
 }
-else if(horizontal==1 && vertical==0 && lineavertical==1){
+}else{
+
+if(horizontal==0 && vertical==1){
+A= 2*dx;
+dy=dy*-1;
+B = A-(2*dy);
+e = A-dy;
+printf("B=%d  \n     %d             (x,y) \n",B,e);
+printf("e=(%d-%d) %d",A,dx,e);
+for (int py=y0;py<=y1;py++){
+ printf("       (%d,%d)\n",x,py);
+ matrix[poseje-py][poseje+x]=1;
+
+ 	if(e<0){
+ 			x--;
+ 			printf(" e=(%d+%d)= ",e,B);
+ 			e =e+B;
+ 			printf("%d ",e);
+ 		}
+	else{
+			
+			printf(" e=(%d+%d)=",e,A);
+	 		e = e+A;
+	 		printf(" %d ",e);
+	 	}
+}
+ printf("\n");
+
+}
+
+
+else if(horizontal==0 && vertical==0){
+A= 2*dx;
+
+B = A-(2*dy);
+e = A-dy;
+
+printf("\naqi el valor importa A(%d)=2*dx(%d)\n",A,dx);
+printf("aqi el valor importa B(%d)=A(%d)-(2*dy(%d))\n",B,A,dy);
+
+printf("B=%d  \n     %d             (x,y) \n",B,e);
+printf("e=(%d-%d) %d",A,dy,e);
+for (int py=y0;py>=y1;py--){
+ printf("       (%d,%d)\n",x,py);
+ matrix[poseje-py][poseje+x]=1;
+
+ 	if(e<0){
+ 			x--;
+ 			printf(" e=(%d+%d)= ",e,B);
+ 			e =e+B;
+ 			printf("%d ",e);
+ 		}
+	else{
+			
+			printf(" e=(%d+%d)=",e,A);
+	 		e = e+A;
+	 		printf(" %d ",e);
+	 	}
+
+}
+ printf("\n");
+
+
+}
+
+else if(horizontal==1 && vertical==0 && lineavertical!=1){
+A= 2*dx;
+dy=dy*-1;
+B = A-(2*dy);
+e = A-dy;
+printf("B=%d  \n     %d             (x,y) \n",B,e);
+printf("e=(%d-%d) %d",A,dx,e);
+for (int py=y0;py>=y1;py--){
+ 
+ printf("       (%d,%d)\n",x,py);
+ matrix[poseje-py][poseje+x]=1;
+
+ 	if(e>0){
+
+ 			x++;
+ 			printf(" e=(%d+%d)= ",e,B);
+ 			e =e+B;
+ 			printf("%d ",e);
+ 		}
+	else{
+			
+			printf(" e=(%d+%d)=",e,A);
+	 		e = e+A;
+	 		printf(" %d ",e);
+	 	}
+
+}
+ printf("\n");
+
+
+}
+
+else if(horizontal==1 && vertical==1 && lineavertical!=1){
+
+A= 2*dx;
+
+B = A-(2*dy);
+e = A-dy;
+
+printf("B=%d  \n     %d             (x,y) \n",B,e);
+printf("e=(%d-%d) %d",A,dy,e);
+for (int py=y0;py<=y1;py++){
+ printf("       (%d,%d)\n",x,py);
+ matrix[poseje-py][poseje+x]=1;
+
+ 	if(e>0){
+ 			x++;
+ 			printf(" e=(%d+%d)= ",e,B);
+ 			e =e+B;
+ 			printf("%d ",e);
+ 		}
+	else{
+			
+			printf(" e=(%d+%d)=",e,A);
+	 		e = e+A;
+	 		printf(" %d ",e);
+	 	}
+}
+ printf("\n");
+
+}
+}
+
+
+if(horizontal==1 && vertical==0 && lineavertical==1){
 dx=dx*-1;
 B = A-(2*dx);
 e = A-dx;

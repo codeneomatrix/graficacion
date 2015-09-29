@@ -418,9 +418,9 @@ int main(){
 
 	for (int i = 0; i < lados; i++){
 		
-		vectorpuntos[n]=(int)xr(radio,an);
+		vectorpuntos[n]=(int)(xr(radio,an));
 		n++;
-		vectorpuntos[n]=(int)yr(radio,an);
+		vectorpuntos[n]=(int)(yr(radio,an)+0.5);
 		n++;
 		an=an+angulo;
 

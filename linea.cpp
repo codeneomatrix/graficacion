@@ -2,42 +2,14 @@
 #include <stdlib.h>
 
 int x0,y0,x1,y1,dx,dy,y,x,A,B,e,horizontal,lineavertical,vertical,maxtan=40,poseje=maxtan/2,adx,ady;
-
-
-
-int main(){
 char salida;
-int matrix[maxtan][maxtan];
+int matrix[40][40];
+
+
+
+void puntos(int x0,int y0,int x1,int y1){
+
 //char ejes='▓',linea='#',fondo[]="\033[1;37m.\033[1;32m";
-
-for (int i=0;i<maxtan;i++){
-	for (int j=0;j<maxtan;j++){
-		if(j==poseje || i== poseje){
-        matrix[j][i]=3;
-		}else{
-		matrix[j][i]=0;	
-		}
-	}
-}
-
-printf("\n PROGRAMA ESCRITO POR ACEVEDO!!!!!!!!!!!!!!!!\n");
-
-
-while(salida!='x'){
-
-	printf("x0:");
-scanf("%d",&x0);
-//x0=2;
-printf("y0:");
-scanf("%d",&y0);
-//y0=1;
-
-printf("x1:");
-scanf("%d",&x1);
-//x1=10;
-printf("y1:");
-scanf("%d",&y1);
-//y1=5;
 
 if(x0==x1){
 	lineavertical=1;
@@ -368,13 +340,50 @@ for (int y=0;y<maxtan;y++){
 }
 
 
-printf("desea colocar un nuevo punto?(s) (x para salir):");
-scanf("%c",&salida);
-printf("\n");
 }
 
 
 
 
+int main(){
+int metodintro;
+
+for (int i=0;i<maxtan;i++){
+ 	for (int j=0;j<maxtan;j++){
+ 		if(j==poseje || i== poseje){
+         matrix[j][i]=3;
+ 		}else{
+ 		matrix[j][i]=0;	
+ 		}
+ 	}
+ }
+
+printf("\n PROGRAMA ESCRITO POR ACEVEDO!!!!!!!!!!!!!!!!\n");
+
+
+
+
+//while(salida!='x'){
+
+	printf("x0:");
+scanf("%d",&x0);
+//x0=2;
+printf("y0:");
+scanf("%d",&y0);
+//y0=1;
+
+printf("x1:");
+scanf("%d",&x1);
+//x1=10;
+printf("y1:");
+scanf("%d",&y1);
+//y1=5;
+
+	puntos(x0,y0,x1,y1);
+
+// printf("desea colocar un nuevo punto?(s) (x para salir):");
+// scanf("%c",&salida);
+// printf("\n");
+// }
 return 0;
 }

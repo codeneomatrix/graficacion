@@ -61,11 +61,7 @@ int main(){
 
    int velocidadx=1;
    int velocidady=1;
-
-   for (int i = 0; i < 10000; i++){
-      
-      
-
+   while (true){
 
       matrix[pxp][pyp]=0;
 
@@ -86,15 +82,16 @@ int main(){
 
       if (pxp>=(maxtan-1)){
          velocidadx*=-1;
-          if (cambio==0 && (1+ (rand()% 2)) >0.3){
+          if (cambio==0 && (1+ (rand()% 2)) >1.3){
              cambio=1;
-             printf("velocidadx = 2\n");
+             //printf("velocidadx = 2\n");
              velocidadx*=2;
+
           }
-          else{
+          if (cambio==1 && (1+ (rand()% 2)) <1.5){
             cambio=0;
-            printf("velocidadx = 1\n");
-            velocidadx=-1;
+            //printf("velocidadx = 1\n");
+            velocidadx=1;
          }
       }
       if (pxp<=0){

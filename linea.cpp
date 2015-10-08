@@ -444,5 +444,7 @@ int main(){
 
 	}
 
+	// tienes puntos iniciales modificalas primero a estos (traslada y escala) despues los graficas!!!!!!
+
 return 0;
 }

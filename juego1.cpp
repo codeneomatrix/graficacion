@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <unistd.h>
+#include "bresenham.cpp"
+
 int x0,yi,x1,yf,dx,dy,y,x,A,B,e,horizontal,lineavertical,vertical,maxtan=40,poseje=maxtan/2,adx,ady;
 char salida;
 int matrix[40][40];
@@ -18,6 +20,9 @@ void grafica(){
          if(matrix[y][x]==3){
             printf("\033[1;31m▓\033[1;37m");
          }
+         if(matrix[y][x]==4){
+            printf("\033[1;32m▓\033[1;37m");
+         }
          if(matrix[y][x]==8){
             printf("\033[1;32m⚫\033[1;37m");
          }
@@ -29,38 +34,14 @@ void grafica(){
 
 }
 
-
-
-int main(){
-   int metodintro;
-
-   for (int i=0;i<maxtan;i++){
-      for (int j=0;j<maxtan;j++){
-         matrix[j][i]=0;   
-      }
-    }
-
-
-    for (int i=0;i<100;i++){
-         matrix[(1+ (rand()% 10))][(1+ (rand()% maxtan))]=3;   
-    }
-      
-      int pxp=maxtan-1;
-      int pyp=(maxtan-1)/2;
-
-       matrix[pxp][pyp]=8;
-
-
-
-   //printf("\n PROGRAMA ESCRITO POR ACEVEDO!!!!!!!!!!!!!!!!\n");
-
-   grafica();
-
-   //juego();
+void juego(int pxp, int pyp){
    int cambio=0;
-
    int velocidadx=1;
    int velocidady=1;
+   
+   //int pxp=maxtan-1;
+   //int pyp=(maxtan-1)/2;
+
    while (true){
 
       matrix[pxp][pyp]=0;
@@ -112,6 +93,49 @@ int main(){
       sleep(0.90);
 
       }
+
+}
+
+int main(){
+   int metodintro;
+
+   for (int i=0;i<maxtan;i++){
+      for (int j=0;j<maxtan;j++){
+         matrix[j][i]=0;   
+      }
+    }
+
+
+    for (int i=0;i<100;i++){
+         matrix[(1+ (rand()% 10))][(1+ (rand()% maxtan))]=3;   
+    }
+      
+      int pxp=maxtan-1;
+      int pyp=(maxtan-1)/2;
+
+       matrix[pxp][pyp]=8;
+
+
+
+   //printf("\n PROGRAMA ESCRITO POR ACEVEDO!!!!!!!!!!!!!!!!\n");
+
+   grafica();
+
+  int longitud= 5; 
+
+  int* sa = bresen(pyp,pxp,(pyp+(longitud-1)),(pxp-(longitud-1)));
+
+  int j= 0; 
+    for (int i = 0; i <longitud; i++){
+    matrix[sa[j+1]][sa[j]]=4;
+    j=j+2;
+  }
+  //printf(" ]");
+
+   grafica();
+   
+   juego(sa[((longitud*2)-1)],sa[((longitud*2)-2)]);
+   
 
 return 0;
 }

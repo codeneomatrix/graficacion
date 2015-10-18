@@ -96,8 +96,16 @@ void juego(int pxp, int pyp){
 
 }
 
+void rotacion(int xc,int yc,int *x, int *y,int an){
+  int xs= xc +((*x-xc)*cos(an/57.3))-((*y-yc)*sin(an/57.3));
+  *x=xs;
+  int ys= yc +((*x-xc)*sin(an/57.3))+((*y-yc)*cos(an/57.3));
+  *y=ys;
+  printf("xs=%d, ys=%d\n",xs,ys );
+}
+
+
 int main(){
-   int metodintro;
 
    for (int i=0;i<maxtan;i++){
       for (int j=0;j<maxtan;j++){
@@ -121,20 +129,73 @@ int main(){
 
    grafica();
 
+
+  //###################canon#######################################
   int longitud= 5; 
+  int salid=-1;
+  
+  int pfy=(pyp+(longitud-1));
+  int pfx=(pxp-(longitud-1));
+ 
+ while(salid!=0){
+     int* sa = bresen(pyp,pxp,pfy,pfx);
 
-  int* sa = bresen(pyp,pxp,(pyp+(longitud-1)),(pxp-(longitud-1)));
+    int j= 0; 
+      for (int i = 0; i <longitud; i++){
+        matrix[sa[j+1]][sa[j]]=4;
+        j=j+2;
+      }
 
-  int j= 0; 
-    for (int i = 0; i <longitud; i++){
-    matrix[sa[j+1]][sa[j]]=4;
-    j=j+2;
-  }
-  //printf(" ]");
+    printf("xf: %d,yf:%d\n",pfy,pfx );
+    
+    if(salid==2){
+      int j= 0;
+      for (int i = 0; i <longitud; i++){
+        matrix[sa[j+1]][sa[j]]=0;
+        j=j+2;
+      }
 
-   grafica();
+      rotacion(pyp,pxp,&pfy,&pfx,-20);
+      printf("xf: %d,yf:%d\n",pfy,pfx );
+
+      sa = bresen(pyp,pxp,pfy,pfx);
+
+      j= 0; 
+      for (int i = 0; i <longitud; i++){
+        matrix[sa[j+1]][sa[j]]=4;
+        j=j+2;
+      }
+
+    }
+
+    if(salid==4){
+      int j= 0;
+      for (int i = 0; i <longitud; i++){
+        matrix[sa[j+1]][sa[j]]=0;
+        j=j+2;
+      }
+      
+      rotacion(pyp,pxp,&pfy,&pfx,20);
+      printf("xf: %d,yf:%d\n",pfy,pfx );
+
+      sa = bresen(pyp,pxp,pfy,pfx);
+
+      j= 0; 
+      for (int i = 0; i <longitud; i++){
+        matrix[sa[j+1]][sa[j]]=4;
+        j=j+2;
+      }
+
+    }
+    
+     grafica();
    
-   juego(sa[((longitud*2)-1)],sa[((longitud*2)-2)]);
+      scanf("%d",&salid);
+   }
+
+ 
+ 
+   //juego(sa[((longitud*2)-1)],sa[((longitud*2)-2)]);
    
 
 return 0;

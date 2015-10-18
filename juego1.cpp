@@ -34,10 +34,10 @@ void grafica(){
 
 }
 
-void juego(int pxp, int pyp){
+void juego(int pxp, int pyp,int velocidadx, int velocidady){
    int cambio=0;
-   int velocidadx=1;
-   int velocidady=1;
+   //int velocidadx=1;
+   //int velocidady=1;
    
    //int pxp=maxtan-1;
    //int pyp=(maxtan-1)/2;
@@ -67,7 +67,7 @@ void juego(int pxp, int pyp){
              cambio=1;
              //printf("velocidadx = 2\n");
              velocidadx*=2;
-
+             velocidady=1;
           }
           if (cambio==1 && (1+ (rand()% 2)) <1.5){
             cambio=0;
@@ -101,7 +101,7 @@ void rotacion(int xc,int yc,int *x, int *y,int an){
   *x=xs;
   int ys= yc +((*x-xc)*sin(an/57.3))+((*y-yc)*cos(an/57.3));
   *y=ys;
-  printf("xs=%d, ys=%d\n",xs,ys );
+  //printf("xs=%d, ys=%d\n",xs,ys );
 }
 
 
@@ -136,9 +136,10 @@ int main(){
   
   int pfy=(pyp+(longitud-1));
   int pfx=(pxp-(longitud-1));
-  int* sau;
+  
+  printf("4+enter:izquierda\n6+enter:derecha\n0+enter:dispara");
+ while(salid!=-2){
 
- while(salid!=0){
      int* sa = bresen(pyp,pxp,pfy,pfx);
 
     int j= 0; 
@@ -147,7 +148,7 @@ int main(){
         j=j+2;
       }
 
-    printf("xf: %d,yf:%d\n",pfy,pfx );
+    //printf("xf: %d,yf:%d\n",pfy,pfx );
     
     if(salid==4){
       int j= 0;
@@ -157,7 +158,7 @@ int main(){
       }
 
       rotacion(pyp,pxp,&pfy,&pfx,-20);
-      printf("xf: %d,yf:%d\n",pfy,pfx );
+      //printf("xf: %d,yf:%d\n",pfy,pfx );
 
       sa = bresen(pyp,pxp,pfy,pfx);
 
@@ -177,7 +178,7 @@ int main(){
       }
       
       rotacion(pyp,pxp,&pfy,&pfx,20);
-      printf("xf: %d,yf:%d\n",pfy,pfx );
+      //printf("xf: %d,yf:%d\n",pfy,pfx );
 
       sa = bresen(pyp,pxp,pfy,pfx);
 
@@ -186,18 +187,34 @@ int main(){
         matrix[sa[j+1]][sa[j]]=4;
         j=j+2;
       }
-
     }
-    
+
+    if(salid==0){
+
+      //(int)(xr(radio,an))
+
+     int vx=(pfx-pxp);
+     int vy=(pfy-pyp);
+     int sent=1;
+
+     if(vy<0){
+      sent=-1;
+     }
+     if (vx!=0){
+      vx=(vx/vx);
+     }
+     if (vy!=0){
+      vy=(vy/vy)*sent;
+     }
+     
+     //printf("\nvx %d\n",vx );
+     //printf("vy %d\n", vy);
+
+        juego(sa[((longitud*2)-1)],sa[((longitud*2)-2)],vx,vy);
+      }
      grafica();
-    sau= sa;
       scanf("%d",&salid);
    }
-
- 
- 
-   juego(sau[((longitud*2)-1)],sau[((longitud*2)-2)]);
-   
 
 return 0;
 }

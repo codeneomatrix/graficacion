@@ -136,7 +136,8 @@ int main(){
   
   int pfy=(pyp+(longitud-1));
   int pfx=(pxp-(longitud-1));
- 
+  int* sau;
+
  while(salid!=0){
      int* sa = bresen(pyp,pxp,pfy,pfx);
 
@@ -148,7 +149,7 @@ int main(){
 
     printf("xf: %d,yf:%d\n",pfy,pfx );
     
-    if(salid==2){
+    if(salid==4){
       int j= 0;
       for (int i = 0; i <longitud; i++){
         matrix[sa[j+1]][sa[j]]=0;
@@ -168,7 +169,7 @@ int main(){
 
     }
 
-    if(salid==4){
+    if(salid==6){
       int j= 0;
       for (int i = 0; i <longitud; i++){
         matrix[sa[j+1]][sa[j]]=0;
@@ -189,13 +190,13 @@ int main(){
     }
     
      grafica();
-   
+    sau= sa;
       scanf("%d",&salid);
    }
 
  
  
-   //juego(sa[((longitud*2)-1)],sa[((longitud*2)-2)]);
+   juego(sau[((longitud*2)-1)],sau[((longitud*2)-2)]);
    
 
 return 0;

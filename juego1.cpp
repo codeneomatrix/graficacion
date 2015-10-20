@@ -90,18 +90,18 @@ void juego(int pxp, int pyp,int velocidadx, int velocidady){
       matrix[pxp][pyp]=8;
       
       grafica();
-      sleep(0.90);
+      sleep(1);
 
       }
 
 }
 
 void rotacion(int xc,int yc,int *x, int *y,int an){
-  int xs= xc +((*x-xc)*cos(an/57.3))-((*y-yc)*sin(an/57.3));
+  int xs= xc+((*x-xc)*cos(an/57.3))-((*y-yc)*sin(an/57.3));
   *x=xs;
-  int ys= yc +((*x-xc)*sin(an/57.3))+((*y-yc)*cos(an/57.3));
+  int ys= yc+((*x-xc)*sin(an/57.3))+((*y-yc)*cos(an/57.3));
   *y=ys;
-  //printf("xs=%d, ys=%d\n",xs,ys );
+  printf("xs=%d, ys=%d\n",xs,ys );
 }
 
 
@@ -151,14 +151,14 @@ int main(){
     //printf("xf: %d,yf:%d\n",pfy,pfx );
     
     if(salid==4){
-      int j= 0;
+      j= 0;
       for (int i = 0; i <longitud; i++){
         matrix[sa[j+1]][sa[j]]=0;
         j=j+2;
       }
 
-      rotacion(pyp,pxp,&pfy,&pfx,-20);
-      //printf("xf: %d,yf:%d\n",pfy,pfx );
+      rotacion(pyp,pxp,&pfy,&pfx,-1);
+      printf("xf: %d,yf:%d\n",pfy,pfx );
 
       sa = bresen(pyp,pxp,pfy,pfx);
 
@@ -167,18 +167,17 @@ int main(){
         matrix[sa[j+1]][sa[j]]=4;
         j=j+2;
       }
-
     }
 
     if(salid==6){
-      int j= 0;
+      j= 0;
       for (int i = 0; i <longitud; i++){
         matrix[sa[j+1]][sa[j]]=0;
         j=j+2;
       }
-      
-      rotacion(pyp,pxp,&pfy,&pfx,20);
-      //printf("xf: %d,yf:%d\n",pfy,pfx );
+
+      rotacion(pyp,pxp,&pfy,&pfx,5);
+      printf("xf: %d,yf:%d\n",pfy,pfx );
 
       sa = bresen(pyp,pxp,pfy,pfx);
 
@@ -191,30 +190,25 @@ int main(){
 
     if(salid==0){
 
-      //(int)(xr(radio,an))
+       int vx=pfx-pxp;
+       int vy=pfy-pyp;
+       int sent=1;
+      if(vx<0){
+          sent=-1;
+       }
+      if (vx!=0){
+          vx=vx*sent;
+       }
+       
+       printf("\nvx %d\n",vx );
+       printf("vy %d\n", vy);
 
-     int vx=(pfx-pxp);
-     int vy=(pfy-pyp);
-     int sent=1;
+       juego(sa[((longitud*2)-1)],sa[((longitud*2)-2)],vx,vy);
+    }
 
-     if(vy<0){
-      sent=-1;
-     }
-     if (vx!=0){
-      vx=(vx/vx);
-     }
-     if (vy!=0){
-      vy=(vy/vy)*sent;
-     }
-     
-     //printf("\nvx %d\n",vx );
-     //printf("vy %d\n", vy);
-
-        juego(sa[((longitud*2)-1)],sa[((longitud*2)-2)],vx,vy);
-      }
-     grafica();
-      scanf("%d",&salid);
-   }
+    grafica();
+    scanf("%d",&salid);
+  }
 
 return 0;
 }

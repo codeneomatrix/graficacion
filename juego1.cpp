@@ -6,6 +6,7 @@
 
 int x0,yi,x1,yf,dx,dy,y,x,A,B,e,horizontal,lineavertical,vertical,maxtan=40,poseje=maxtan/2,adx,ady;
 char salida;
+int sol=0;
 int matrix[40][40];
 
 
@@ -22,6 +23,9 @@ void grafica(){
          }
          if(matrix[y][x]==4){
             printf("\033[1;32m▓\033[1;37m");
+         }
+         if(matrix[y][x]==6){
+            printf("\033[1;33m☀\033[1;37m");
          }
          if(matrix[y][x]==8){
             printf("\033[1;32m⚫\033[1;37m");
@@ -55,9 +59,18 @@ void juego(int pxp, int pyp,int velocidadx, int velocidady){
       
       if (matrix[pxp][pyp]==3){
          int ra = (1+ (rand()% 2));
+         matrix[pxp][pyp]= 6;
+         grafica();
+         sleep(1);
             if (ra>0.3){
                velocidady*=-1;      
             }
+         matrix[pxp][pyp]= 0;
+         if(sol==2){
+            grafica();
+            break; 
+         }
+         
          
       }
 
@@ -107,6 +120,10 @@ void rotacion(int xc,int yc,int *x, int *y,int an){
 
 int main(){
 
+  printf("BIENVENIDO\n1)JUGAR SOLO \n2)JUGAR CON ALGUIEN\n");
+  scanf("%d",&sol);
+
+
    for (int i=0;i<maxtan;i++){
       for (int j=0;j<maxtan;j++){
          matrix[j][i]=0;   
@@ -137,7 +154,7 @@ int main(){
   int pfy=(pyp+(longitud-1));
   int pfx=(pxp-(longitud-1));
   
-  printf("4+enter:izquierda\n6+enter:derecha\n0+enter:dispara");
+  printf("4+enter:izquierda\n6+enter:derecha\n0+enter:dispara\n\n");
  while(salid!=-2){
 
      int* sa = bresen(pyp,pxp,pfy,pfx);

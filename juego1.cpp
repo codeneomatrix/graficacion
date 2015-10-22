@@ -103,7 +103,7 @@ void juego(int pxp, int pyp,int velocidadx, int velocidady){
       matrix[pxp][pyp]=8;
       
       grafica();
-      sleep(1);
+      sleep(0.9);
 
       }
 

@@ -130,7 +130,9 @@ void dibujar(void)
         y= figura[n++];
         n-=2;
 
+
         rotacion(centrox,centroy,&x, &y,rota);
+
 
         figura[n++]= x;
         figura[n++]= y;

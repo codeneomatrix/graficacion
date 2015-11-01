@@ -1,7 +1,7 @@
 #include <GL/glut.h>
 #include <math.h>
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 /*
 //#-----------------------------------------------------------------
 COMPILAR!!!!!
@@ -19,17 +19,52 @@ int lados=3;
 float radio=1;
 
 
-float rota= 0.0f;
+float rota= 0;
 float muevex= 0.0f;
 float muevey= 0.0f;
 float escala= 1.0f;
 
-void rotacion(float xc,float yc,float *x, float *y,float an){
-  float xs= xc+((*x-xc)*cos(an/57.3))-((*y-yc)*sin(an/57.3));
+void rotacion3d(float xc,float yc,float *x, float *y,float an){
+  float ran= an/57.3;
+  float xs=  xc+((*x-xc)*cos(an/57.3))-((*y-yc)*sin(an/57.3));
   *x=xs;
   float ys= yc+((*x-xc)*sin(an/57.3))+((*y-yc)*cos(an/57.3));
   *y=ys;
-  //printf("xs=%d, ys=%d\n",xs,ys );
+  //printf("xs=%f, ys=%f\n",xs,ys );
+}
+
+void rotacion(float xc,float yc,float *x, float *y,float an){
+  float ran= an/57.3;
+ /* printf("sin(an):%f\n",sin(an));
+  printf("(y-yc):%f\n",(*y-yc));
+  printf("cos(an):%f\n",cos(an));
+  printf("(x-xc):%f\n",(*x-xc));
+
+  printf("(y-yc)sin(an):%f\n",(*y-yc)*sin(an));
+  printf("(x-xc)cos(an):%f\n",(*x-xc)*cos(an));
+  printf("xc+(*x-xc)cos(an):%f\n",xc+(*x-xc)*cos(an));
+  printf("xc+(*x-xc)cos(an)-(*y-yc)sin(an):%f\n",xc+(*x-xc)*cos(an)-(*y-yc)*sin(an));
+
+  printf("(*y-yc)cos(an):%f\n",(*y-yc)*cos(an));
+  printf("(*x-xc)sin(an):%f\n",(*x-xc)*sin(an));
+  printf("xc+(*x-xc)sin(an):%f\n",yc+(*x-xc)*sin(an));
+  printf("yc+(*x-xc)sin(an)+(*y-yc)cos(an):%f\n",yc+(*x-xc)*sin(an)+(*y-yc)*cos(an));*/
+
+
+  float xs=  xc+(*x-xc)*cos(ran)-(*y-yc)*sin(ran);
+  float ys= yc+(*x-xc)*sin(ran)+(*y-yc)*cos(ran);
+
+  *y=ys;
+  *x=xs;
+  //printf("xs=%f, ys=%f\n",xs,ys);
+}
+
+void escalado(float xc,float yc,float *x, float *y,float es){
+  float xs=  xc+(es*(*x-xc));
+  *x=xs;
+  float ys= yc+(es*(*y-yc));
+  *y=ys;
+  //printf("xs=%f, ys=%f\n",xs,ys );
 }
 
 
@@ -119,23 +154,56 @@ void dibujar(void)
 	  //printf("max%f;;mex%f;;may%f;;mey%f\n",mayorx,menorx,mayory,menory);
 	  centrox= (mayorx+menorx)/2;
 	  centroy= (mayory+menory)/2;
-	  printf("x::%f;;y::%f\n",centrox,centroy);
+	  //printf("x::%f;;y::%f\n",centrox,centroy);
 //********************************************************************
 
 //********************************************************************[rotacion]
+	 // printf("rotacion de: %d°\n",rota );
 	  n=0;
 	  for (int i = 0; i < lados*2; i=i+2){
-        
-	  	x= figura[n++];
-        y= figura[n++];
+        //printf("figura[x]ar:::%f\n",figura[n] );
+	  	x= figura[n];
+	  	n++;
+	  	//printf("figura[y]ar:::%f\n",figura[n] );
+        y= figura[n];
+        n++;
         n-=2;
 
 
         rotacion(centrox,centroy,&x, &y,rota);
 
+        
+        figura[n]= x;
+        //printf("figura[x]:::%f\n",figura[n] );
+        n++;
+        figura[n]= y;
+        //printf("figura[y]:::%f\n",figura[n] );
+        n++;
+	  }
+//************************************************************************************
 
-        figura[n++]= x;
-        figura[n++]= y;
+//********************************************************************[escalado]
+	  //printf("escala de: %f\n",escala );
+	  n=0;
+	  for (int i = 0; i < lados*2; i=i+2){
+        //printf("figura[x]ar:::%f\n",figura[n] );
+	  	x= figura[n];
+	  	n++;
+	  	//printf("figura[y]ar:::%f\n",figura[n] );
+        y= figura[n];
+        n++;
+        n-=2;
+
+
+        escalado(centrox,centroy,&x, &y,escala);
+
+        
+        figura[n]= x;
+        //printf("figura[x]:::%f\n",figura[n] );
+        n++;
+        figura[n]= y;
+        //printf("figura[y]:::%f\n",figura[n] );
+        n++;
 	  }
 //************************************************************************************
 
@@ -170,7 +238,7 @@ void reshape(int w, int h){
 }
 
 void Keyboard(unsigned char key, int x, int y){
-  printf("%d\n",key );
+  //printf("%d\n",key );
   switch(key){
     case 27:
       exit(0);
@@ -184,7 +252,28 @@ void Keyboard(unsigned char key, int x, int y){
       }
     break;
     case 114: //tecla r aumenta el angulo de rotacion
-      rota+=1;  
+	if(rota>=360){
+        rota=0;
+    }else{
+    	rota+=1;
+    }
+    break;
+    case 110: //tecla n disminuye el angulo de rotacion
+	if(rota<=0){
+        rota=0;
+    }else{
+    	rota-=1;
+    }
+    break;
+    case 101: //tecla e aumenta la escala
+	escala+=0.5;
+    break;
+    case 98: //tecla b disminuye la escala
+	if(escala<=0.5){
+        escala=0.5;
+    }else{
+    	escala-=0.5;
+    }
     break;
   }
   glutPostRedisplay();

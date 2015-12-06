@@ -1,4 +1,5 @@
-#include "stdafx.h"
+//#include "stdafx.h"
+#include "ImageLoader.cpp"
 #include <stdlib.h>
 #include <stdio.h>
 #include <GL/glut.h>
@@ -16,7 +17,19 @@ GLdouble anguloY = 0;
 GLdouble anguloX = 0;
 GLdouble anguloZ = 0;
 
-
+GLuint loadTexture(Image* image) {
+	GLuint idtextura;
+	glGenTextures(1, &idtextura);
+	glBindTexture(GL_TEXTURE_2D, idtextura);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image->width, image->height, 0, GL_RGB, GL_UNSIGNED_BYTE, image->pixels);
+	return idtextura;
+}
+GLuint _madera_pared;
+void initRendering() {
+	Image* madera_pared = loadBMP("dado.jpg");
+	_madera_pared = loadTexture(madera_pared);
+	delete madera_pared;
+}
 
 void init(void){
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -90,7 +103,15 @@ void ArrowKey(int key, int x, int y){
 
 void display(void){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	
 	glLoadIdentity();
+
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, _madera_pared);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	gluLookAt(0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glPushMatrix();
 	glTranslatef(xi, yi, -3);
@@ -105,7 +126,7 @@ void display(void){
 	//LADO TRASERO verdefuerte
 	glBegin(GL_POLYGON);
 
-	glColor3f(0.0, 0.4, 0.3);    
+	//glColor3f(0.0, 0.4, 0.3);    
 	glVertex3f(0.5, -0.5, -0.5); 
    
 	glVertex3f(0.5, 0.5, -0.5);      
@@ -118,7 +139,7 @@ void display(void){
 
 	// LADO FRONTAL: lado amarillo
 	glBegin(GL_POLYGON);
-	glColor3f(1.0, 1.0, 0.0);
+	//glColor3f(1.0, 1.0, 0.0);
 	glVertex3f(0.5, -0.5, 0.5);
 	glVertex3f(0.5, 0.5, 0.5);
 	glVertex3f(-0.5, 0.5, 0.5);
@@ -127,7 +148,7 @@ void display(void){
 
 	// LADO Izquierdo: lado morado
 	glBegin(GL_POLYGON);
-	glColor3f(1.0, 0.0, 1.0);
+	//glColor3f(1.0, 0.0, 1.0);
 	glVertex3f(0.5, -0.5, -0.5);
 	glVertex3f(0.5, 0.5, -0.5);
 	glVertex3f(0.5, 0.5, 0.5);
@@ -136,7 +157,7 @@ void display(void){
 
 	// LADO derecho: lado verde
 	glBegin(GL_POLYGON);
-	glColor3f(0.0, 1.0, 0.0);
+	//glColor3f(0.0, 1.0, 0.0);
 	glVertex3f(-0.5, -0.5, 0.5);
 	glVertex3f(-0.5, 0.5, 0.5);
 	glVertex3f(-0.5, 0.5, -0.5);
@@ -145,7 +166,7 @@ void display(void){
 
 	// LADO SUPERIOR: lado azul
 	glBegin(GL_POLYGON);
-	glColor3f(0.0, 0.0, 1.0);
+	//glColor3f(0.0, 0.0, 1.0);
 	glVertex3f(0.5, 0.5, 0.5);
 	glVertex3f(0.5, 0.5, -0.5);
 	glVertex3f(-0.5, 0.5, -0.5);
@@ -154,7 +175,7 @@ void display(void){
 
 	// LADO INFERIOR: lado rojo
 	glBegin(GL_POLYGON);
-	glColor3f(1.0, 0.0, 0.0);
+	//glColor3f(1.0, 0.0, 0.0);
 	glVertex3f(0.5, -0.5, -0.5);
 	glVertex3f(0.5, -0.5, 0.5);
 	glVertex3f(-0.5, -0.5, 0.5);
@@ -192,7 +213,7 @@ int main(int argc, char** argv)
 	glutCreateWindow("Ejemplo 3D");
 	glEnable(GL_DEPTH_TEST);
 	init();
-			
+	initRendering();
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutIdleFunc(display);

@@ -1,6 +1,6 @@
-#include "stdafx.h"
-#include <GL\glut.h>
-#include "ImageLoader.h"
+//#include "stdafx.h"
+#include <GL/glut.h>
+#include "ImageLoader.cpp"
 GLuint loadTexture(Image* image) {
 	GLuint idtextura;
 	glGenTextures(1, &idtextura);
